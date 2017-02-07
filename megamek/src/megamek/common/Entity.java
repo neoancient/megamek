@@ -137,6 +137,8 @@ public abstract class Entity extends TurnOrdered implements Transporter,
     public static final long ETYPE_SUPPORT_VTOL = 1L << 25;
 
     public static final long ETYPE_TRIPOD_MECH = 1L << 26;
+    
+    public static final long ETYPE_HANDHELD_WEAPON = 1L << 27;
 
     public static final int NONE = -1;
 
