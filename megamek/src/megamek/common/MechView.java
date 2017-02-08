@@ -290,14 +290,16 @@ public class MechView {
         }
 
         sBasic.append("<br>"); //$NON-NLS-1$
-        if (!isGunEmplacement) {
-            if (isSquadron) {
-                sBasic.append(getArmor());
-            } else if (isAero) {
-                sBasic.append(getSIandArmor());
-            } else {
-                sBasic.append(getInternalAndArmor());
-            }
+        if (isSquadron) {
+            sBasic.append(getArmor());
+        } else if (isAero) {
+            sBasic.append(getSIandArmor());
+        } else if (isHandheld) {
+            sBasic.append(Messages.getString("MechView.Armor")) //$NON-NLS-1$
+                .append(entity.getTotalArmor())
+            	.append("<br>"); //$NON-NLS-1$
+        } else if (!isGunEmplacement){
+            sBasic.append(getInternalAndArmor());
         }
         
 
