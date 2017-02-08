@@ -36,6 +36,7 @@ import megamek.common.loaders.BLKDropshipFile;
 import megamek.common.loaders.BLKFile;
 import megamek.common.loaders.BLKFixedWingSupportFile;
 import megamek.common.loaders.BLKGunEmplacementFile;
+import megamek.common.loaders.BLKHandheldWeaponFile;
 import megamek.common.loaders.BLKInfantryFile;
 import megamek.common.loaders.BLKJumpshipFile;
 import megamek.common.loaders.BLKLargeSupportTankFile;
@@ -165,6 +166,8 @@ public class MechFileParser {
                     loader = new BLKVTOLFile(bb);
                 } else if (sType.equals("GunEmplacement")) {
                     loader = new BLKGunEmplacementFile(bb);
+                } else if (sType.equals("HandheldWeapon")) {
+                    loader = new BLKHandheldWeaponFile(bb);
                 } else if (sType.equals("SupportTank")) {
                     loader = new BLKSupportTankFile(bb);
                 } else if (sType.equals("LargeSupportTank")) {

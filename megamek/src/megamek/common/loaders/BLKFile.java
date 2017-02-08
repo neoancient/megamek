@@ -34,6 +34,7 @@ import megamek.common.EquipmentType;
 import megamek.common.FirstClassQuartersCargoBay;
 import megamek.common.FixedWingSupport;
 import megamek.common.GunEmplacement;
+import megamek.common.HandheldWeapon;
 import megamek.common.HeavyVehicleBay;
 import megamek.common.Infantry;
 import megamek.common.InfantryBay;
@@ -347,6 +348,8 @@ public class BLKFile {
             blk.writeBlockData("UnitType", "ProtoMech");
         } else if (t instanceof Mech) {
             blk.writeBlockData("UnitType", "Mech");
+        } else if (t instanceof HandheldWeapon) {
+        	blk.writeBlockData("UnitType", "HandheldWeapon");
         } else if (t instanceof GunEmplacement) {
             blk.writeBlockData("UnitType", "GunEmplacement");
         } else if (t instanceof LargeSupportTank) {
@@ -489,7 +492,7 @@ public class BLKFile {
                 }
                 blk.writeBlockData("engine_type", engineCode);
             }
-            if (!t.hasPatchworkArmor() && (t.getArmorType(1) != 0)) {
+            if (!(t instanceof HandheldWeapon) && !t.hasPatchworkArmor() && (t.getArmorType(1) != 0)) {
                 blk.writeBlockData("armor_type", t.getArmorType(1));
                 blk.writeBlockData("armor_tech", t.getArmorTechLevel(1));
             } else if (t.hasPatchworkArmor()) {
@@ -514,6 +517,8 @@ public class BLKFile {
                 for (int i = 0; i < numLocs; i++) {
                     armor_array[i] = t.getOArmor(i);
                 }
+            } else if (t instanceof HandheldWeapon) {
+            	armor_array = new int[] { t.getOArmor(HandheldWeapon.LOC_GUNS) };
             } else {
                 armor_array = new int[numLocs - 1];
                 for (int i = 1; i < numLocs; i++) {
