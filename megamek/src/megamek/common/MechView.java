@@ -44,6 +44,7 @@ public class MechView {
     private boolean isVehicle;
     private boolean isProto;
     private boolean isGunEmplacement;
+    private boolean isHandheld;
     private boolean isAero;
     private boolean isFixedWingSupport;
     private boolean isSquadron;
@@ -68,6 +69,7 @@ public class MechView {
         isVehicle = entity instanceof Tank;
         isProto = entity instanceof Protomech;
         isGunEmplacement = entity instanceof GunEmplacement;
+        isHandheld = entity instanceof HandheldWeapon;
         isAero = entity instanceof Aero;
         isFixedWingSupport = entity instanceof FixedWingSupport;
         isSquadron = entity instanceof FighterSquadron;
@@ -195,7 +197,7 @@ public class MechView {
         if (isBA && ((BattleArmor) entity).hasDWP()) {
             sBasic.append("<br><i>(").append(Messages.getString("MechView.DWPBurdened")).append(")</i>"); //$NON-NLS-1$
         }
-        if (isVehicle) {
+        if (isVehicle && !isGunEmplacement) {
             sBasic.append(" (") //$NON-NLS-1$
                     .append(Messages
                             .getString("MovementType." + entity.getMovementModeAsString())).append(")"); //$NON-NLS-1$
@@ -208,7 +210,7 @@ public class MechView {
             }
         }
         sBasic.append("<br>"); //$NON-NLS-1$
-        if (isMech || isVehicle
+        if (isMech || (isVehicle && !isGunEmplacement)
                 || (isAero && !isSmallCraft && !isJumpship && !isSquadron)) {
             sBasic.append(Messages.getString("MechView.Engine")); //$NON-NLS-1$
             sBasic.append(entity.hasEngine() ? entity.getEngine().getShortEngineName() : "(none)");
