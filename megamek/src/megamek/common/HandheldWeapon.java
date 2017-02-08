@@ -74,6 +74,53 @@ public class HandheldWeapon extends GunEmplacement {
     	}
     	return TestEntity.ceil(tons, TestEntity.Ceil.HALFTON);
     }
+    
+    @Override
+    public double getCost(boolean ignoreAmmo) {
+    	double cost = 0;
+    	for (Mounted m : getEquipment()) {
+    		if (!(ignoreAmmo && m.getType() instanceof AmmoType)) {
+    			cost += m.getType().getCost(this, false, m.getLocation());
+    		}
+    	}
+    	return cost * 2;
+    }
+    
+    @Override
+    public int calculateBattleValue() {
+    	double bv = 0;
+    	for (Mounted m : getEquipment()) {
+    		if (!m.isDestroyed()) {
+    			if (m.getType() instanceof WeaponType) {
+    				double wBV = m.getType().getBV(this);
+    				Mounted linker = m.getLinkedBy();
+    				if (linker != null && linker.getType() instanceof MiscType) {
+    					if (linker.getType().hasFlag(MiscType.F_ARTEMIS)) {
+    						wBV *= 1.2;
+    					}
+    					if (linker.getType().hasFlag(MiscType.F_ARTEMIS_V)) {
+    						wBV *= 1.3;
+    					}
+    					if (linker.getType().hasFlag(MiscType.F_APOLLO)) {
+    						wBV *= 1.15;
+    					}
+    					if (linker.getType().hasFlag(MiscType.F_RISC_LASER_PULSE_MODULE)) {
+    						wBV *= 1.25;
+    					}
+    				}
+    				bv += wBV;
+    			} else if (m.getType() instanceof AmmoType) {
+    				bv += m.getType().getBV(this) * m.getBaseShotsLeft()
+    						/ ((AmmoType)m.getType()).getShots();
+    			} else if (m.getType() instanceof MiscType
+    					&& m.getType().hasFlag(MiscType.F_VEHICLE_MINE_DISPENSER)) {
+    				bv += m.getType().getBV(this);
+    			}
+    		}
+    	}
+    	bv += getTotalOArmor() * 2;
+    	return (int)Math.round(bv);
+    }
 	
     @Override
     public long getEntityType(){
