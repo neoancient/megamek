@@ -13,6 +13,8 @@
  */
 package megamek.common;
 
+import megamek.common.verifier.TestEntity;
+
 /**
  * Weapons that can be picked up and used by Meks with working hand actuators. Rules are found
  * in TacOps p. 314 but the most recent rules are found in TacOps errata 3.5, pp. 23-24.
@@ -58,6 +60,19 @@ public class HandheldWeapon extends GunEmplacement {
         }
         
         return false;
+    }
+    
+    @Override
+    public double getWeight() {
+    	double tons = 0;
+    	for (Mounted m : getEquipment()) {
+    		if (m.getType() instanceof AmmoType) {
+    			tons += ((double)m.getOriginalShots()) / ((AmmoType)m.getType()).getShots();
+    		} else {
+    			tons += m.getType().getTonnage(this);
+    		}
+    	}
+    	return TestEntity.ceil(tons, TestEntity.Ceil.HALFTON);
     }
 	
     @Override
