@@ -82,7 +82,12 @@ public class HandheldWeapon extends GunEmplacement {
     public double getCost(boolean ignoreAmmo) {
     	double cost = 0;
     	for (Mounted m : getEquipment()) {
-    		if (!(ignoreAmmo && m.getType() instanceof AmmoType)) {
+    		if (m.getType() instanceof AmmoType) {
+    			if (!ignoreAmmo) {
+    				cost += m.getType().getCost(this, false, m.getLocation())
+    						* m.getBaseShotsLeft() / ((AmmoType)m.getType()).getShots();
+    			}
+    		} else {
     			cost += m.getType().getCost(this, false, m.getLocation());
     		}
     	}
