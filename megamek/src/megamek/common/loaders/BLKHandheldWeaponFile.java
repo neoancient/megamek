@@ -14,9 +14,13 @@
 
 package megamek.common.loaders;
 
+import megamek.common.AmmoType;
 import megamek.common.Entity;
+import megamek.common.EquipmentType;
 import megamek.common.GunEmplacement;
 import megamek.common.HandheldWeapon;
+import megamek.common.LocationFullException;
+import megamek.common.Mounted;
 import megamek.common.util.BuildingBlock;
 
 /**
@@ -87,5 +91,45 @@ public class BLKHandheldWeaponFile extends BLKFile implements IMechLoader {
         loadEquipment(e, "Guns", GunEmplacement.LOC_GUNS);
         e.setArmorTonnage(e.getArmorWeight());
         return e;
+    }
+
+    @Override
+    protected void loadEquipment(Entity t, String sName, int nLoc) throws EntityLoadingException {
+        String[] saEquip = dataFile.getDataAsString(sName + " Equipment");
+        if (saEquip == null) {
+            return;
+        }
+
+        if (saEquip[0] != null) {
+            for (int x = 0; x < saEquip.length; x++) {
+                int numShots = 0;
+                if (saEquip[x].contains(":Shots")){
+                    String shotString = saEquip[x].substring(
+                            saEquip[x].indexOf(":Shots"),
+                            saEquip[x].indexOf("#")+1);
+                    numShots = Integer.parseInt(
+                            shotString.replace(":Shots", "").replace("#", ""));
+                    saEquip[x] = saEquip[x].replace(shotString, "");
+                }
+                
+                String equipName = saEquip[x].trim();
+                EquipmentType etype = EquipmentType.get(equipName);
+
+                if (etype != null) {
+                    try {
+                        Mounted m = t.addEquipment(etype, HandheldWeapon.LOC_GUNS, false);
+                        if (numShots != 0 && m != null 
+                                && (m.getType() instanceof AmmoType)){
+                            m.setShotsLeft(numShots);
+                            m.setOriginalShots(numShots);
+                        }
+                    } catch (LocationFullException ex) {
+                        throw new EntityLoadingException(ex.getMessage());
+                    }
+                } else if (!equipName.equals("")) {
+                    t.addFailedEquipment(equipName);
+                }
+            }
+        }
     }
 }

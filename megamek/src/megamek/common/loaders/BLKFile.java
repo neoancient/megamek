@@ -579,9 +579,9 @@ public class BLKFile {
             if (m.getBaMountLoc() == BattleArmor.MOUNT_LOC_RARM){
                 name += ":RA";
             }
-            // For BattleArmor, we need to save how many shots are in this
+            // For BattleArmor or handheld weapons we need to save how many shots are in this
             //  location
-            if ((t instanceof BattleArmor)
+            if ((t instanceof BattleArmor || t instanceof HandheldWeapon)
                     && (m.getType() instanceof AmmoType)){
                 name += ":Shots" + m.getBaseShotsLeft() + "#";
             }
