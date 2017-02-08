@@ -28,6 +28,7 @@ public class HandheldWeapon extends GunEmplacement {
 	private static final long serialVersionUID = -8857292801028543020L;
 
     private static int[] CRITICAL_SLOTS = new int[] { 6 };
+    private int heatSinks = 0;
 	
 	@Override
 	public boolean isTurret() {
@@ -37,6 +38,17 @@ public class HandheldWeapon extends GunEmplacement {
     @Override
     public int[] getNoOfSlots() {
         return CRITICAL_SLOTS;
+    }
+    
+    /*
+     * Heat sinks are required by energy weapons and count toward weight and cost.
+     */
+    public int getNumHeatSinks() {
+    	return heatSinks;
+    }
+    
+    public void setNumHeatSinks(int hs) {
+    	heatSinks = hs;
     }
 
     /* We only want a critical slot for weapons, so we add to LOC_NONE first then move it
@@ -76,6 +88,7 @@ public class HandheldWeapon extends GunEmplacement {
     		}
     	}
     	tons += getTotalOArmor() / 16.0;
+    	tons += heatSinks;
     	return TestEntity.ceil(tons, TestEntity.Ceil.HALFTON);
     }
     
@@ -92,6 +105,7 @@ public class HandheldWeapon extends GunEmplacement {
     			cost += m.getType().getCost(this, false, m.getLocation());
     		}
     	}
+    	cost += EquipmentType.get("Heat Sink").getCost(this, false, LOC_NONE) * heatSinks;
     	return cost * 2;
     }
     
