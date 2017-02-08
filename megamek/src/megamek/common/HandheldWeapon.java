@@ -25,13 +25,30 @@ public class HandheldWeapon extends GunEmplacement {
 	
 	private static final long serialVersionUID = -8857292801028543020L;
 
-	public static final int MAX_EQUIPMENT = 6;
+    private static int[] CRITICAL_SLOTS = new int[] { 6 };
 	
 	@Override
 	public boolean isTurret() {
 		return false;
 	}
 	
+    @Override
+    public int[] getNoOfSlots() {
+        return CRITICAL_SLOTS;
+    }
+
+    /* We only want a critical slot for weapons, so we add to LOC_NONE first then move it
+     * and add a critical slot if necessary.
+     */
+    public void addEquipment(Mounted mounted, int loc, boolean rearMounted)
+            throws LocationFullException {
+    	super.addEquipment(mounted, LOC_NONE, rearMounted);
+    	mounted.setLocation(LOC_GUNS);
+    	if (mounted.getType() instanceof WeaponType) {
+    		addCritical(loc, new CriticalSlot(mounted));
+    	}
+    }
+
     @Override
     public boolean isLocationProhibited(Coords c, int currElevation) {
         IHex hex = game.getBoard().getHex(c);
