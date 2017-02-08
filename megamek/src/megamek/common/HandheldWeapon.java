@@ -70,11 +70,12 @@ public class HandheldWeapon extends GunEmplacement {
     	double tons = 0;
     	for (Mounted m : getEquipment()) {
     		if (m.getType() instanceof AmmoType) {
-    			tons += ((double)m.getOriginalShots()) / ((AmmoType)m.getType()).getShots();
+    			tons += ((double)m.getBaseShotsLeft()) / ((AmmoType)m.getType()).getShots();
     		} else {
     			tons += m.getType().getTonnage(this);
     		}
     	}
+    	tons += getTotalOArmor() / 16.0;
     	return TestEntity.ceil(tons, TestEntity.Ceil.HALFTON);
     }
     
