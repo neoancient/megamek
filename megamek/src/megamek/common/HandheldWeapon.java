@@ -83,6 +83,35 @@ public class HandheldWeapon extends GunEmplacement {
         
         return false;
     }
+
+    public void recalcHeat() {
+        heatSinks = 0;
+        for (Mounted m : getWeaponList()) {
+        	int heat = 0;
+            WeaponType wt = (WeaponType) m.getType();
+            if ((wt.hasFlag(WeaponType.F_LASER) && (wt.getAmmoType() == AmmoType.T_NA))
+                    || wt.hasFlag(WeaponType.F_PPC)
+                    || wt.hasFlag(WeaponType.F_PLASMA)
+                    || wt.hasFlag(WeaponType.F_PLASMA_MFUK)
+                    || (wt.hasFlag(WeaponType.F_FLAMER) && (wt.getAmmoType() == AmmoType.T_NA))) {
+                heat += wt.getHeat();
+            }
+            if (m.getLinkedBy() != null && m.getLinkedBy().getType() instanceof MiscType) {
+            	if (m.getLinkedBy().getType().hasFlag(MiscType.F_PPC_CAPACITOR)) {
+            		heat += 5;
+            	}
+            	if (m.getLinkedBy().getType().hasFlag(MiscType.F_RISC_LASER_PULSE_MODULE)) {
+            		heat += 2;
+            	}
+            	if (m.getLinkedBy().getType().hasFlag(MiscType.F_LASER_INSULATOR)) {
+            		if (heat > 0) {
+            			heat--;
+            		}
+            	}
+            }
+            heatSinks += heat;
+        }
+    }
     
     @Override
     public double getWeight() {
@@ -115,6 +144,11 @@ public class HandheldWeapon extends GunEmplacement {
     	}
     	cost += EquipmentType.get("Heat Sink").getCost(this, false, LOC_NONE) * heatSinks;
     	return cost * 2;
+    }
+    
+    @Override
+    public int calculateBattleValue(boolean ignoreC3, boolean ignorePilot) {
+    	return calculateBattleValue();
     }
     
     @Override

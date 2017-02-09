@@ -867,6 +867,10 @@ public class MechFileParser {
                 throw new EntityLoadingException(ex.getMessage());
             }
         }
+        
+        if (ent instanceof HandheldWeapon) {
+        	((HandheldWeapon)ent).recalcHeat();
+        }
 
         // Check if it's canon; if it is, mark it as such.
         ent.setCanon(false);// Guilty until proven innocent
