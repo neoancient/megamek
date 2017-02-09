@@ -56,12 +56,19 @@ public class HandheldWeapon extends GunEmplacement {
      */
     public void addEquipment(Mounted mounted, int loc, boolean rearMounted)
             throws LocationFullException {
+    	boolean addCrit = mounted.getType() instanceof WeaponType
+    			|| (mounted.getType() instanceof MiscType
+    					&& mounted.getType().hasFlag(MiscType.F_VEHICLE_MINE_DISPENSER));
+    	if (addCrit && getEmptyCriticals(LOC_GUNS) <= 0) {
+			throw new LocationFullException("Handheld weapon has a maximum of "
+					+ getNoOfSlots()[LOC_GUNS] + " slots.");
+    	}
     	super.addEquipment(mounted, LOC_NONE, rearMounted);
     	if (!(mounted.getType() instanceof MiscType
     			&& mounted.getType().hasFlag(MiscType.F_HEAT_SINK))) {
     		mounted.setLocation(LOC_GUNS);
     	}
-    	if (mounted.getType() instanceof WeaponType) {
+    	if (addCrit) {
     		addCritical(loc, new CriticalSlot(mounted));
     	}
     }
