@@ -149,6 +149,8 @@ public class MechSummary implements Serializable {
             return Entity.getEntityMajorTypeName(Entity.ETYPE_VTOL);
         } else if (ms.getUnitType().equals("Naval")) {
             return Entity.getEntityMajorTypeName(Entity.ETYPE_TANK);
+        } else if (ms.getUnitType().equals("Handheld Weapon")) {
+        	return Entity.getEntityMajorTypeName(Entity.ETYPE_HANDHELD_WEAPON);
         } else if (ms.getUnitType().equals("Gun Emplacement")) {
             return Entity.getEntityMajorTypeName(Entity.ETYPE_TANK);
         } else if (ms.getUnitType().equals("Tank")) {
@@ -187,6 +189,8 @@ public class MechSummary implements Serializable {
                 || (mm == EntityMovementMode.HYDROFOIL)
                 || (mm == EntityMovementMode.SUBMARINE)) {
             return "Naval";
+        } else if (e instanceof HandheldWeapon) {
+        	return "Handheld Weapon";
         } else if (e instanceof GunEmplacement) {
             return "Gun Emplacement";
         } else if (e instanceof Tank) {

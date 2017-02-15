@@ -13642,6 +13642,8 @@ public abstract class Entity extends TurnOrdered implements Transporter,
             return "Protomech";
         } else if ((typeId & ETYPE_INFANTRY) == ETYPE_INFANTRY) {
             return "Infantry";
+        } else if ((typeId & ETYPE_HANDHELD_WEAPON) == ETYPE_HANDHELD_WEAPON) {
+        	return "Handheld Weapon";
         } else if ((typeId & ETYPE_GUN_EMPLACEMENT) == ETYPE_GUN_EMPLACEMENT) {
             return "Gun Emplacement";
         } else if ((typeId & ETYPE_SUPER_HEAVY_TANK) == ETYPE_SUPER_HEAVY_TANK) {

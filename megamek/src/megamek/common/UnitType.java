@@ -27,17 +27,18 @@ public class UnitType {
     public static final int VTOL = 5;
     public static final int NAVAL = 6;
     public static final int GUN_EMPLACEMENT = 7;
-    public static final int CONV_FIGHTER = 8;
-    public static final int AERO = 9;
-    public static final int SMALL_CRAFT = 10;
-    public static final int DROPSHIP = 11;
-    public static final int JUMPSHIP = 12;
-    public static final int WARSHIP = 13;
-    public static final int SPACE_STATION = 14;
+    public static final int HANDHELD_WEAPON = 8;
+    public static final int CONV_FIGHTER = 9;
+    public static final int AERO = 10;
+    public static final int SMALL_CRAFT = 11;
+    public static final int DROPSHIP = 12;
+    public static final int JUMPSHIP = 13;
+    public static final int WARSHIP = 14;
+    public static final int SPACE_STATION = 15;
 
     private static String[] names = { "Mek", "Tank", "BattleArmor", "Infantry",
-            "ProtoMek", "VTOL", "Naval", "Gun Emplacement", "Conventional Fighter",
-            "Aero", "Small Craft", "Dropship",
+            "ProtoMek", "VTOL", "Naval", "Gun Emplacement", "Handheld Weapon",
+            "Conventional Fighter", "Aero", "Small Craft", "Dropship",
             "Jumpship", "Warship", "Space Station" };
 
     public static final int SIZE = names.length;
@@ -58,6 +59,8 @@ public class UnitType {
                 || (mm == EntityMovementMode.HYDROFOIL)
                 || (mm == EntityMovementMode.SUBMARINE)) {
             return NAVAL;
+        } else if (e instanceof HandheldWeapon) {
+        	return HANDHELD_WEAPON;
         } else if (e instanceof GunEmplacement) {
             return GUN_EMPLACEMENT;
         } else if (e instanceof Tank) {
