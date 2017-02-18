@@ -6353,7 +6353,7 @@ public abstract class Entity extends TurnOrdered implements Transporter,
             roll.append(new PilotingRollData(getId(), 0, "moving recklessly"));
             // ice conditions
         } else if (curHex.containsTerrain(Terrains.ICE)) {
-            roll.append(new PilotingRollData(getId(), 4, "moving recklessly"));
+            roll.append(new PilotingRollData(getId(), 0, "moving recklessly"));
         } else {
             roll.addModifier(TargetRoll.CHECK_FALSE, "not moving recklessly");
         }
@@ -6563,6 +6563,8 @@ public abstract class Entity extends TurnOrdered implements Transporter,
                                 || (movementMode == EntityMovementMode.WIGE))
                                 && ((game.getPlanetaryConditions()
                                         .getWeather() == PlanetaryConditions.WE_HEAVY_SNOW)
+                                        || (game.getPlanetaryConditions()
+                                                .getWeather() == PlanetaryConditions.WE_BLIZZARD)
                                         || (game.getPlanetaryConditions()
                                                 .getWindStrength() >= PlanetaryConditions.WI_STORM))))
                 && (prevFacing != curFacing) && !lastPos.equals(curPos)) {
@@ -9615,6 +9617,8 @@ public abstract class Entity extends TurnOrdered implements Transporter,
         return false;
 
     }
+
+    public abstract boolean doomedInExtremeTemp();
 
     public abstract boolean doomedInVacuum();
 
