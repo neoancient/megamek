@@ -1,0 +1,65 @@
+#building block data file
+<BlockVersion>
+1
+</BlockVersion>
+
+##Write the version number just in case...
+<Version>
+MAM0
+</Version>
+
+<UnitType>
+HandheldWeapon
+</UnitType>
+
+<Name>
+Heavy Streak
+</Name>
+
+<Model>
+
+</Model>
+
+<year>
+3084
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+32
+</armor>
+
+<GUNS Equipment>
+ISStreakSRM4
+ISStreakSRM4
+ISStreakSRM4
+IS Streak SRM 4 Ammo:Shots25#
+</GUNS Equipment>
+
+<imagepath>
+./data/images/fluff/handheld/Quickdraw QKD-8P.png
+</imagepath>
+
+<source>
+RS:Prototypes
+</source>
+
+<tonnage>
+12.0
+</tonnage>
+

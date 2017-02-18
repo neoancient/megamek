@@ -1,0 +1,63 @@
+#building block data file
+<BlockVersion>
+1
+</BlockVersion>
+
+##Write the version number just in case...
+<Version>
+MAM0
+</Version>
+
+<UnitType>
+HandheldWeapon
+</UnitType>
+
+<Name>
+Heavy LRM
+</Name>
+
+<Model>
+
+</Model>
+
+<year>
+3084
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+16
+</armor>
+
+<GUNS Equipment>
+LRM 20
+IS Ammo LRM-20:Shots6#
+</GUNS Equipment>
+
+<imagepath>
+./data/images/fluff/handheld/Quickdraw QKD-8P.png
+</imagepath>
+
+<source>
+RS:Prototypes
+</source>
+
+<tonnage>
+12.0
+</tonnage>
+

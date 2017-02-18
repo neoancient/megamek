@@ -1,0 +1,63 @@
+#building block data file
+<BlockVersion>
+1
+</BlockVersion>
+
+##Write the version number just in case...
+<Version>
+MAM0
+</Version>
+
+<UnitType>
+HandheldWeapon
+</UnitType>
+
+<Name>
+Streak LRM
+</Name>
+
+<Model>
+
+</Model>
+
+<year>
+3085
+</year>
+
+<type>
+Clan Level 3
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+8
+</armor>
+
+<GUNS Equipment>
+CLStreakLRM5
+Clan Streak LRM 5 Ammo:Shots12#
+</GUNS Equipment>
+
+<imagepath>
+./data/images/fluff/handheld/Incubus II.png
+</imagepath>
+
+<source>
+RS:Prototypes
+</source>
+
+<tonnage>
+3.0
+</tonnage>
+

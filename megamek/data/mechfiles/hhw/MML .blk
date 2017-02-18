@@ -1,0 +1,60 @@
+#building block data file
+<BlockVersion>
+1
+</BlockVersion>
+
+##Write the version number just in case...
+<Version>
+MAM0
+</Version>
+
+<UnitType>
+HandheldWeapon
+</UnitType>
+
+<Name>
+MML
+</Name>
+
+<Model>
+
+</Model>
+
+<year>
+3083
+</year>
+
+<type>
+IS Level 3
+</type>
+
+<motion_type>
+None
+</motion_type>
+
+<cruiseMP>
+0
+</cruiseMP>
+
+<internal_type>
+-1
+</internal_type>
+
+<armor>
+0
+</armor>
+
+<GUNS Equipment>
+ISMML7
+IS Ammo MML-7 LRM:Shots17#
+IS Ammo MML-7 SRM:Shots14#
+</GUNS Equipment>
+
+<imagepath>
+./data/images/fluff/handheld/Axman AXM-6T.png
+</imagepath>
+
+<tonnage>
+6.5
+</tonnage>
+
